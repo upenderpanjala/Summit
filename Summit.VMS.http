@@ -1,0 +1,76 @@
+### Summit VMS — REST API smoke tests
+### Use with VS Code "REST Client" extension or JetBrains HTTP client.
+@host = https://localhost:5001
+
+### 1. Log in as an Investigator (can manage victims)
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "investigator@summit.gov",
+  "password": "Invest#12345"
+}
+
+### Capture the token from the response above, then set it here:
+@token = {{login.response.body.accessToken}}
+
+### 2. Who am I?
+GET {{host}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### 3. List victims (allowed for all four roles)
+GET {{host}}/api/victims
+Authorization: Bearer {{token}}
+
+### 4. Get a single victim (audited)
+GET {{host}}/api/victims/1
+Authorization: Bearer {{token}}
+
+### 5. Create a victim (Administrator / Investigator only)
+POST {{host}}/api/victims
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "referenceNumber": "L200",
+  "firstName": "Test",
+  "lastName": "Subject",
+  "gender": 1,
+  "city": "Central",
+  "state": "NY",
+  "notes": "Created via API."
+}
+
+### 6. List cases
+GET {{host}}/api/cases
+Authorization: Bearer {{token}}
+
+###
+### --- View-only role demonstration ---
+### Log in as the Home Minister (view-only).
+# @name ministerLogin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "minister@summit.gov",
+  "password": "Minister#12345"
+}
+
+@ministerToken = {{ministerLogin.response.body.accessToken}}
+
+### Minister CAN view victims:
+GET {{host}}/api/victims
+Authorization: Bearer {{ministerToken}}
+
+### Minister CANNOT create — expect HTTP 403 Forbidden:
+POST {{host}}/api/victims
+Authorization: Bearer {{ministerToken}}
+Content-Type: application/json
+
+{
+  "referenceNumber": "L999",
+  "firstName": "Should",
+  "lastName": "Fail"
+}

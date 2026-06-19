@@ -1,0 +1,27 @@
+## .NET build output
+bin/
+obj/
+out/
+
+## User-specific / IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## Secrets / local config
+appsettings.*.local.json
+*.dbmdf
+*.ldf
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Runtime file storage (uploads + mail drop)
+Storage/
