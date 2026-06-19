@@ -1,0 +1,37 @@
+@model IReadOnlyList<Notification>
+@{
+    ViewData["Title"] = "Notifications";
+}
+<h1 class="h3 mb-3"><i class="bi bi-bell me-1"></i>Notifications</h1>
+
+<div class="card">
+    <ul class="list-group list-group-flush">
+        @if (!Model.Any())
+        {
+            <li class="list-group-item text-muted">No notifications yet.</li>
+        }
+        @foreach (var n in Model)
+        {
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="fw-semibold">
+                            <i class="bi bi-person-plus text-warning me-1"></i>@n.Title
+                        </div>
+                        <div class="text-muted">@n.Message</div>
+                    </div>
+                    <div class="text-end">
+                        <div class="small text-secondary">@n.CreatedAtUtc.ToLocalTime().ToString("g")</div>
+                        @if (n.EntityType == "Victim" && !string.IsNullOrEmpty(n.EntityId))
+                        {
+                            <a class="btn btn-sm btn-outline-primary mt-1"
+                               asp-controller="Victims" asp-action="Details" asp-route-id="@n.EntityId">
+                                Open record
+                            </a>
+                        }
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

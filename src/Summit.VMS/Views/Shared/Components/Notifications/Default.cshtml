@@ -1,0 +1,40 @@
+@model IReadOnlyList<Notification>
+@{
+    int count = ViewBag.RecentCount ?? 0;
+}
+<div class="dropdown">
+    <button class="btn btn-sm position-relative text-light border-0" type="button"
+            data-bs-toggle="dropdown" aria-expanded="false" title="Notifications">
+        <i class="bi bi-bell-fill fs-5"></i>
+        @if (count > 0)
+        {
+            <span class="badge rounded-pill notif-badge">@(count > 99 ? "99+" : count.ToString())</span>
+        }
+    </button>
+    <div class="dropdown-menu dropdown-menu-end notif-dropdown p-0 shadow">
+        <div class="px-3 py-2 border-bottom fw-semibold text-bg-brand rounded-top">
+            Notifications
+        </div>
+        @if (!Model.Any())
+        {
+            <div class="px-3 py-3 text-muted small">No notifications yet.</div>
+        }
+        else
+        {
+            foreach (var n in Model)
+            {
+                <a class="dropdown-item py-2 border-bottom text-wrap"
+                   href="@(n.EntityType == "Victim" ? Url.Action("Details", "Victims", new { id = n.EntityId }) : Url.Action("Index", "Notifications"))">
+                    <div class="fw-semibold small">
+                        <i class="bi bi-person-plus text-warning me-1"></i>@n.Title
+                    </div>
+                    <div class="small text-muted">@n.Message</div>
+                    <div class="small text-secondary">@n.CreatedAtUtc.ToLocalTime().ToString("g")</div>
+                </a>
+            }
+        }
+        <a class="dropdown-item text-center py-2 small" asp-controller="Notifications" asp-action="Index">
+            View all
+        </a>
+    </div>
+</div>

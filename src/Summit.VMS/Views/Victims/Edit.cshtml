@@ -1,0 +1,17 @@
+@model VictimFormViewModel
+@{
+    ViewData["Title"] = "Edit victim";
+}
+<h1 class="h3 mb-3">Edit victim record</h1>
+<div class="card p-4">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-2"></div>
+        <partial name="_Form" model="Model" />
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save changes</button>
+            <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

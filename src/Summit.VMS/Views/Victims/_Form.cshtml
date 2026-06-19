@@ -1,0 +1,62 @@
+@model VictimFormViewModel
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <label asp-for="ReferenceNumber" class="form-label"></label>
+        <input asp-for="ReferenceNumber" class="form-control" />
+        <span asp-validation-for="ReferenceNumber" class="text-danger small"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger small"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger small"></span>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="Gender" class="form-label"></label>
+        <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select"></select>
+    </div>
+    <div class="col-md-3">
+        <label asp-for="DateOfBirth" class="form-label"></label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label asp-for="NationalId" class="form-label"></label>
+        <input asp-for="NationalId" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label asp-for="ContactNumber" class="form-label"></label>
+        <input asp-for="ContactNumber" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="CaseId" class="form-label"></label>
+        <select asp-for="CaseId" asp-items="ViewBag.Cases" class="form-select">
+            <option value="">— none —</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <label asp-for="Address" class="form-label"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="City" class="form-label"></label>
+        <input asp-for="City" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label asp-for="State" class="form-label"></label>
+        <input asp-for="State" class="form-control" />
+    </div>
+    <div class="col-12">
+        <label asp-for="Notes" class="form-label"></label>
+        <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+    </div>
+</div>

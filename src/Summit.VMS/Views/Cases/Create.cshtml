@@ -1,0 +1,16 @@
+@model CaseFormViewModel
+@{
+    ViewData["Title"] = "New case";
+}
+<h1 class="h3 mb-3">New case</h1>
+<div class="card p-4">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger small mb-2"></div>
+        <partial name="_Form" model="Model" />
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Create</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

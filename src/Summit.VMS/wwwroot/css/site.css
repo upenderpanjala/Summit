@@ -1,0 +1,62 @@
+:root {
+    --brand-navy: #004B8E;
+    --brand-navy-dark: #003a6e;
+    --brand-orange: #F68026;
+    --brand-orange-dark: #d96a13;
+}
+
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+
+.card { border: none; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.table thead th { background: #eef3f8; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; color: var(--brand-navy); }
+dt { color: #475569; font-weight: 600; }
+.login-wrap { max-width: 420px; margin: 5vh auto; }
+
+/* ---- Brand navbar ---- */
+.navbar-summit { background: var(--brand-navy); }
+.navbar-brand .summit-accent { color: var(--brand-orange); }
+
+/* ---- Buttons ---- */
+.btn-primary {
+    --bs-btn-bg: var(--brand-navy);
+    --bs-btn-border-color: var(--brand-navy);
+    --bs-btn-hover-bg: var(--brand-navy-dark);
+    --bs-btn-hover-border-color: var(--brand-navy-dark);
+    --bs-btn-active-bg: var(--brand-navy-dark);
+    --bs-btn-active-border-color: var(--brand-navy-dark);
+    --bs-btn-disabled-bg: var(--brand-navy);
+    --bs-btn-disabled-border-color: var(--brand-navy);
+}
+.btn-outline-primary {
+    --bs-btn-color: var(--brand-navy);
+    --bs-btn-border-color: var(--brand-navy);
+    --bs-btn-hover-bg: var(--brand-navy);
+    --bs-btn-hover-border-color: var(--brand-navy);
+    --bs-btn-active-bg: var(--brand-navy);
+    --bs-btn-active-border-color: var(--brand-navy);
+}
+.btn-accent {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand-orange);
+    --bs-btn-border-color: var(--brand-orange);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-orange-dark);
+    --bs-btn-hover-border-color: var(--brand-orange-dark);
+    --bs-btn-active-bg: var(--brand-orange-dark);
+}
+
+/* ---- Accents ---- */
+.text-bg-brand { background: var(--brand-navy) !important; color: #fff !important; }
+.text-bg-accent { background: var(--brand-orange) !important; color: #fff !important; }
+a { color: var(--brand-navy); }
+a:hover { color: var(--brand-navy-dark); }
+.stat-card .display-6 { color: var(--brand-navy); }
+.stat-card { border-top: 3px solid var(--brand-orange); }
+
+/* ---- Notification bell ---- */
+.notif-badge {
+    position: absolute; top: 2px; right: 2px;
+    font-size: .6rem; background: var(--brand-orange);
+}
+.notif-dropdown { min-width: 320px; max-height: 420px; overflow-y: auto; }

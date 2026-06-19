@@ -1,0 +1,53 @@
+@model IEnumerable<UserListItemViewModel>
+@{
+    ViewData["Title"] = "Users";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Users &amp; roles</h1>
+</div>
+
+<div class="alert alert-secondary small">
+    <i class="bi bi-info-circle me-1"></i>
+    <strong>PoliceHierarchy</strong> and <strong>HomeMinister</strong> accounts have view-only
+    access to victim details. <strong>Investigator</strong> and <strong>Administrator</strong>
+    can create and edit records.
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+            <tr><th>Name</th><th>Email</th><th>Mobile</th><th>Badge</th><th>Roles</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td>@u.FullName</td>
+                    <td>@u.Email</td>
+                    <td>@(string.IsNullOrEmpty(u.Mobile) ? "—" : u.Mobile)</td>
+                    <td>@(string.IsNullOrEmpty(u.BadgeNumber) ? "—" : u.BadgeNumber)</td>
+                    <td>
+                        @foreach (var r in u.Roles)
+                        {
+                            var css = (r == AppRoles.PoliceHierarchy || r == AppRoles.HomeMinister)
+                                ? "text-bg-secondary" : "text-bg-primary";
+                            <span class="badge @css me-1">@r</span>
+                        }
+                    </td>
+                    <td>
+                        @if (u.IsActive)
+                        {
+                            <span class="badge text-bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-danger">Disabled</span>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
