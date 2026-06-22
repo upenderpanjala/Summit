@@ -286,19 +286,6 @@ public class IncidentWorkflowService : IIncidentWorkflowService
         return (count, threshold, active);
     }
 
-
-    {
-        var incident = await _db.Set<DistressIncident>().FindAsync(incidentId);
-        if (incident == null) return false;
-        if (incident.Status is IncidentStatus.Raised or IncidentStatus.UnderVerification)
-        {
-            incident.Status = IncidentStatus.Cancelled;
-            await _db.SaveChangesAsync();
-            return true;
-        }
-        return false; // too late to cancel once confirmed
-    }
-
     public async Task<IReadOnlyList<DistressIncident>> GetPendingForOfficerAsync() =>
         await _db.Set<DistressIncident>()
             .Include(i => i.VictimProfile)!.ThenInclude(v => v!.Contacts)
@@ -317,4 +304,18 @@ public class IncidentWorkflowService : IIncidentWorkflowService
                      || i.Status == IncidentStatus.Resolved)
             .OrderByDescending(i => i.ConfirmedAtUtc)
             .ToListAsync();
+
+    public async Task<bool> CancelAsync(int incidentId)
+    {
+            var incident = await _db.Set<DistressIncident>().FindAsync(incidentId);
+            if (incident == null) return false;
+            if (incident.Status is IncidentStatus.Raised or IncidentStatus.UnderVerification)
+            {
+                incident.Status = IncidentStatus.Cancelled;
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            return false; // too late to cancel once confirmed
+        
+    }
 }
