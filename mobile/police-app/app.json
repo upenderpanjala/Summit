@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Summit Safety — Police",
+    "slug": "summit-safety-police",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "summitpolice",
+    "android": {
+      "package": "in.summit.safety.police"
+    },
+    "ios": {
+      "bundleIdentifier": "in.summit.safety.police",
+      "supportsTablet": true
+    }
+  }
+}

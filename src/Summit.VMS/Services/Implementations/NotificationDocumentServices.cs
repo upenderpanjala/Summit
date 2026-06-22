@@ -73,6 +73,34 @@ public class NotificationService : INotificationService
         await _email.SendAsync(recipients, $"[Summit VMS] New victim {victim.ReferenceNumber}", html);
     }
 
+    public async Task NotifyAsync(string title, string message, string entityType,
+        string? entityId, string? linkPath = null, bool email = true)
+    {
+        var actor = _http.HttpContext?.User?.Identity?.Name ?? "system";
+        _db.Notifications.Add(new Notification
+        {
+            Title = title, Message = message, EntityType = entityType,
+            EntityId = entityId, CreatedByName = actor, CreatedAtUtc = DateTime.UtcNow
+        });
+        await _db.SaveChangesAsync();
+
+        if (!email) return;
+        var recipients = await GetOversightEmailsAsync();
+        var baseUrl = _config["App:BaseUrl"]?.TrimEnd('/') ?? "";
+        var link = string.IsNullOrEmpty(linkPath) ? baseUrl : $"{baseUrl}{linkPath}";
+        var html = $@"
+<div style='font-family:Arial,sans-serif'>
+  <h2 style='color:#004B8E;margin-bottom:4px'>{title}</h2>
+  <p style='margin-top:0'>{message}</p>
+  <p style='margin-top:16px'>
+    <a href='{link}' style='background:#F68026;color:#fff;padding:8px 14px;
+       text-decoration:none;border-radius:4px'>Open in Summit VMS</a>
+  </p>
+  <p style='color:#888;font-size:12px'>Summit VMS — automated notification.</p>
+</div>";
+        await _email.SendAsync(recipients, $"[Summit VMS] {title}", html);
+    }
+
     public async Task<IReadOnlyList<Notification>> GetRecentAsync(int take = 20) =>
         await _db.Notifications.AsNoTracking()
             .OrderByDescending(n => n.CreatedAtUtc)

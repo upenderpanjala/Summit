@@ -82,6 +82,19 @@ builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IVictimService, VictimService>();
 builder.Services.AddScoped<ICaseService, CaseService>();
 
+// ---- Safety / distress module ----
+// Swap these mock integrations for real provider clients in production.
+builder.Services.AddScoped<Summit.VMS.Services.Safety.ISummitVerifier,
+    Summit.VMS.Services.Safety.MockSummitVerifier>();
+builder.Services.AddScoped<Summit.VMS.Services.Safety.IVerificationCaller,
+    Summit.VMS.Services.Safety.MockVerificationCaller>();
+builder.Services.AddScoped<Summit.VMS.Services.Safety.IVoiceMatchService,
+    Summit.VMS.Services.Safety.MockVoiceMatchService>();
+builder.Services.AddScoped<Summit.VMS.Services.Safety.IOtpSender,
+    Summit.VMS.Services.Safety.MockOtpSender>();
+builder.Services.AddScoped<Summit.VMS.Services.Safety.IIncidentWorkflowService,
+    Summit.VMS.Services.Safety.IncidentWorkflowService>();
+
 // Allow document uploads up to the configured size.
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o =>
 {

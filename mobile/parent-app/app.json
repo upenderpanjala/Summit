@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Summit Safety — Parent",
+    "slug": "summit-safety-parent",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "summitparent",
+    "android": {
+      "package": "in.summit.safety.parent"
+    },
+    "ios": {
+      "bundleIdentifier": "in.summit.safety.parent",
+      "supportsTablet": true
+    }
+  }
+}

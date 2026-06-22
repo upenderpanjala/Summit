@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Summit.VMS.Models.Enums;
+using Summit.VMS.Validation;
 
 namespace Summit.VMS.ViewModels;
 
@@ -38,7 +39,7 @@ public class VictimFormViewModel
     [StringLength(50), Display(Name = "National ID")]
     public string? NationalId { get; set; }
 
-    [StringLength(30), Display(Name = "Contact number")]
+    [StringLength(30), IndianMobile(AllowEmpty = true), Display(Name = "Contact number")]
     public string? ContactNumber { get; set; }
 
     [EmailAddress, StringLength(150)]

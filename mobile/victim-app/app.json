@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Summit Safety — Victim",
+    "slug": "summit-safety-victim",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "summitvictim",
+    "android": {
+      "package": "in.summit.safety.victim",
+      "permissions": ["RECORD_AUDIO", "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "ios": {
+      "bundleIdentifier": "in.summit.safety.victim",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Used to record your distress phrase so the app can raise an alert.",
+        "NSLocationWhenInUseUsageDescription": "Used to share your last known location when you raise an alert."
+      }
+    },
+    "plugins": ["expo-audio", "expo-location"]
+  }
+}

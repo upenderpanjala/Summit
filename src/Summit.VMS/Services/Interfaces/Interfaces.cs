@@ -24,6 +24,10 @@ public interface INotificationService
     /// <summary>Records a global notification and emails the oversight recipients.</summary>
     Task NotifyVictimCreatedAsync(Victim victim);
 
+    /// <summary>Records a general global notification (and optionally emails oversight).</summary>
+    Task NotifyAsync(string title, string message, string entityType,
+        string? entityId, string? linkPath = null, bool email = true);
+
     Task<IReadOnlyList<Notification>> GetRecentAsync(int take = 20);
 
     /// <summary>Count of notifications created in the last <paramref name="days"/> days.</summary>
